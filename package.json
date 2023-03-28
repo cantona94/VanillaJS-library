@@ -1,0 +1,15 @@
+{
+  "name": "vanillajs-library",
+  "version": "1.0.0",
+  "description": "library-app",
+  "main": "app.js",
+  "scripts": {
+    "start": "live-server",
+    "build": "rollup"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.33.0",
+    "rollup": "^3.14.0"
+  }
+}
