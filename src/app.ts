@@ -1,7 +1,9 @@
 import { MainView } from './views/main/main';
 import { FavoritesView } from './views/favorites/favorites';
+import { IRoutes, ICurrentView } from './types/data';
 
 class App {
+	currentView: ICurrentView;
 	routes = [
 		{path: "", view: MainView },
 		{path: "#favorites", view: FavoritesView },
@@ -19,7 +21,7 @@ class App {
 		if (this.currentView) {
 			this.currentView.destroy();
 		}
-		const view = this.routes.find(r => r.path == location.hash).view;
+		const view = (<IRoutes>this.routes.find(r => r.path == location.hash)).view;
 		this.currentView = new view(this.appState);
 		this.currentView.render();
 	}

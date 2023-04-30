@@ -1,10 +1,13 @@
-import { AbstractView } from '../../common/view.js';
+import { AbstractView } from '../../common/view';
 import onChange from 'on-change';
-import { Header } from '../../components/Header/header.js';
-import { CardList } from '../../components/Card-List/card-list.js';
+import { Header } from '../../components/Header/header';
+import { CardList } from '../../components/Card-List/card-list';
+import { IAppState} from '../../types/data';
 
 export class FavoritesView extends AbstractView {
-	constructor(appState) {
+	appState: IAppState;
+	app: HTMLElement;
+	constructor(appState: IAppState) {
 		super();
 		this.appState = appState;
 		this.appState = onChange(this.appState, this.appStateHook.bind(this));
@@ -15,7 +18,7 @@ export class FavoritesView extends AbstractView {
 		onChange.unsubscribe(this.appState);
 	}
 
-	appStateHook(path) {
+	appStateHook(path: string) {
 		if (path === 'favorites') {
 			this.render();
 		}

@@ -1,8 +1,10 @@
 import { DivComponent } from '../../common/div-component';
 import './header.css';
+import { IAppState} from '../../types/data';
 
 export class Header extends DivComponent {
-    constructor(appState) {
+	appState: IAppState;
+    constructor(appState: IAppState) {
         super();
         this.appState = appState;
     }

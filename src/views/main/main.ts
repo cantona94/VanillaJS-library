@@ -1,8 +1,9 @@
-import { AbstractView } from '../../common/view.js';
+import { AbstractView } from '../../common/view';
 import onChange from 'on-change';
-import { Header } from '../../components/Header/header.js';
-import { Search } from '../../components/Search/search.js';
-import { CardList } from '../../components/Card-List/card-list.js';
+import { Header } from '../../components/Header/header';
+import { Search } from '../../components/Search/search';
+import { CardList } from '../../components/Card-List/card-list';
+import { IAppState } from '../../types/data';
 
 export class MainView extends AbstractView {
     state = {
@@ -13,7 +14,9 @@ export class MainView extends AbstractView {
         offset: 0,
     };
 
-    constructor(appState) {
+    appState: IAppState;
+    app: HTMLElement;
+    constructor(appState: IAppState) {
         super();
         this.appState = appState;
         this.appState = onChange(this.appState, this.appStateHook.bind(this));
@@ -22,17 +25,17 @@ export class MainView extends AbstractView {
     }
 
     destroy() {
-		onChange.unsubscribe(this.appState);
-		onChange.unsubscribe(this.state);
-	}
+        onChange.unsubscribe(this.appState);
+        onChange.unsubscribe(this.state);
+    }
 
-    appStateHook(path) {
+    appStateHook(path: string) {
         if (path === 'favorites') {
             this.render();
         }
     }
 
-    async stateHook(path) {
+    async stateHook(path: string) {
         if (path === 'searchQuery') {
             this.state.loading = true;
             const data = await this.loadList(
@@ -49,7 +52,7 @@ export class MainView extends AbstractView {
         }
     }
 
-    async loadList(q, offset) {
+    async loadList(q: undefined, offset: number) {
         const res = await fetch(
             `https://openlibrary.org/search.json?q=${q}&offset=${offset}`
         );
